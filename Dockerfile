@@ -6,7 +6,7 @@ COPY WeatherWatch.Web/WeatherWatch.Web.csproj .
 COPY WeatherWatch.Application/WeatherWatch.Application.csproj .
 RUN dotnet restore
 COPY . .
-RUN dotnet publish -c release -o /app
+RUN dotnet publish WeatherWatch.Web.sln -c release -o /app
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 
