@@ -1,7 +1,9 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
 WORKDIR /src
-COPY WeatherWatch.Web.csproj .
+COPY WeatherWatch.Web.sln .
+COPY WeatherWatch.Web/WeatherWatch.Web.csproj .
+COPY WeatherWatch.Application/WeatherWatch.Application.csproj .
 RUN dotnet restore
 COPY . .
 RUN dotnet publish -c release -o /app
