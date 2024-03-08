@@ -9,9 +9,9 @@
 //using Wavefront.SDK.CSharp.Common.Application;
 //using Wavefront.SDK.CSharp.DirectIngestion;
 
-using Tap.Dotnet.Weather.Application.Models;
 using WeatherWatch.Application;
 using WeatherWatch.Application.Interfaces;
+using WeatherWatch.Application.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 

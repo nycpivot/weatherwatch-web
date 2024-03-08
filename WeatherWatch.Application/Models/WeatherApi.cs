@@ -1,6 +1,6 @@
 ﻿using WeatherWatch.Application.Interfaces;
 
-namespace Tap.Dotnet.Weather.Application.Models
+namespace WeatherWatch.Application.Models
 {
     public class WeatherApi : IWeatherApi
     {
