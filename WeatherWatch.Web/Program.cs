@@ -15,7 +15,7 @@ using WeatherWatch.Application.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var serviceBindings = Environment.GetEnvironmentVariable("SERVICE_BINDING_ROOT") ?? String.Empty;
+//var serviceBindings = Environment.GetEnvironmentVariable("SERVICE_BINDING_ROOT") ?? String.Empty;
 
 // read environment variables
 var weatherApi = Environment.GetEnvironmentVariable("WEATHER_API") ?? String.Empty;
