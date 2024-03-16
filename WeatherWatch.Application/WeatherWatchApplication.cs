@@ -132,46 +132,39 @@ namespace WeatherWatch.Application
         {
             var homeViewModel = new HomeViewModel();
 
-            try
+            using (var handler = new HttpClientHandler())
             {
-                using (var handler = new HttpClientHandler())
+                handler.ServerCertificateCustomValidationCallback = (message, cert, chain, sslPolicyErrors) =>
                 {
-                    handler.ServerCertificateCustomValidationCallback = (message, cert, chain, sslPolicyErrors) =>
+                    return true;
+                };
+
+                using (var httpClient = new HttpClient(handler))
+                {
+                    httpClient.BaseAddress = new Uri(this.weatherApi.Url);
+                    httpClient.DefaultRequestHeaders.Add("X-TraceId", traceId.ToString());
+                    httpClient.DefaultRequestHeaders.Add("X-SpanId", spanId.ToString());
+
+                    // get saved favorite zip codes
+                    var favoritesResponse = httpClient.GetAsync("favorites").Result;
+                    if (favoritesResponse.StatusCode == HttpStatusCode.OK)
                     {
-                        return true;
-                    };
+                        var content = favoritesResponse.Content.ReadAsStringAsync().Result;
+                        homeViewModel.Favorites = JsonConvert.DeserializeObject<IList<FavoriteViewModel>>(content) 
+                            ?? new List<FavoriteViewModel>();
+                    }
 
-                    using (var httpClient = new HttpClient(handler))
+                    // get weather forecast for incoming zip code
+                    var forecastResponse = httpClient.GetAsync($"forecast/{zipCode}").Result;
+                    if (forecastResponse.StatusCode == HttpStatusCode.OK)
                     {
-                        httpClient.BaseAddress = new Uri(this.weatherApi.Url);
-                        httpClient.DefaultRequestHeaders.Add("X-TraceId", traceId.ToString());
-                        httpClient.DefaultRequestHeaders.Add("X-SpanId", spanId.ToString());
+                        var content = forecastResponse.Content.ReadAsStringAsync().Result;
 
-                        // get saved favorite zip codes
-                        var favoritesResponse = httpClient.GetAsync("favorites").Result;
-                        if (favoritesResponse.StatusCode == HttpStatusCode.OK)
-                        {
-                            var content = favoritesResponse.Content.ReadAsStringAsync().Result;
-                            homeViewModel.Favorites = JsonConvert.DeserializeObject<IList<FavoriteViewModel>>(content) 
-                                ?? new List<FavoriteViewModel>();
-                        }
-
-                        // get weather forecast for incoming zip code
-                        var forecastResponse = httpClient.GetAsync($"forecast/{zipCode}").Result;
-                        if (forecastResponse.StatusCode == HttpStatusCode.OK)
-                        {
-                            var content = forecastResponse.Content.ReadAsStringAsync().Result;
-
-                            homeViewModel.WeatherInfo = JsonConvert.DeserializeObject<WeatherInfoViewModel>(content) 
-                                ?? new WeatherInfoViewModel();
-                            homeViewModel.WeatherInfo.ZipCode = zipCode;
-                        }
+                        homeViewModel.WeatherInfo = JsonConvert.DeserializeObject<WeatherInfoViewModel>(content) 
+                            ?? new WeatherInfoViewModel();
+                        homeViewModel.WeatherInfo.ZipCode = zipCode;
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message.ToUpper());
             }
 
             return homeViewModel;

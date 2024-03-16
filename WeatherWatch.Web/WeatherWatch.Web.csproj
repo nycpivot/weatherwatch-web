@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapr.AspNetCore" Version="1.13.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\WeatherWatch.Application\WeatherWatch.Application.csproj" />
   </ItemGroup>
 

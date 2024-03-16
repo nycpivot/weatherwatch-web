@@ -151,127 +151,128 @@
 
                 <!-- Content Row -->
                 <div class="row">
-
-                    <!-- Day 1 -->
-                    <div class="col mx-1">
-                        <div class="card border-left-primary shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            @Model.WeatherInfo.Forecast[0].Date.DayOfWeek
-                                        </div>
-                                        <div class="h3 mb-0 font-weight-bold text-gray-800">@Model.WeatherInfo.Forecast[0].TemperatureF℉</div>
-                                    </div>
-                                </div>
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div>
-                                            <i class="fas fa-calendar fa-2x text-black-300">@Model.WeatherInfo.Forecast[0].Description</i>
+                    @if(Model.WeatherInfo.Forecast.Count == 5)
+                    {
+                        <!-- Day 1 -->
+                        <div class="col mx-1">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                @Model.WeatherInfo.Forecast[0].Date.DayOfWeek
+                                            </div>
+                                            <div class="h3 mb-0 font-weight-bold text-gray-800">@Model.WeatherInfo.Forecast[0].TemperatureF℉</div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Day 2 -->
-                    <div class="col mx-1">
-                        <div class="card border-left-success shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            @Model.WeatherInfo.Forecast[1].Date.DayOfWeek
-                                        </div>
-                                        <div class="h3 mb-0 font-weight-bold text-gray-800">@Model.WeatherInfo.Forecast[1].TemperatureF℉</div>
-                                    </div>
-                                </div>
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div>
-                                            <i class="fas fa-calendar fa-2x text-black-300">@Model.WeatherInfo.Forecast[1].Description</i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Day 3 -->
-                    <div class="col mx-1">
-                        <div class="card border-left-info shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                            @Model.WeatherInfo.Forecast[2].Date.DayOfWeek
-                                        </div>
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col-auto">
-                                                <div class="h3 mb-0 mr-3 font-weight-bold text-gray-800">@Model.WeatherInfo.Forecast[2].TemperatureF℉</div>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div>
+                                                <i class="fas fa-calendar fa-2x text-black-300">@Model.WeatherInfo.Forecast[0].Description</i>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div>
-                                            <i class="fas fa-calendar fa-2x text-black-300">@Model.WeatherInfo.Forecast[2].Description</i>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Day 4 -->
-                    <div class="col mx-1">
-                        <div class="card border-left-warning shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                            @Model.WeatherInfo.Forecast[3].Date.DayOfWeek
+                        <!-- Day 2 -->
+                        <div class="col mx-1">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                @Model.WeatherInfo.Forecast[1].Date.DayOfWeek
+                                            </div>
+                                            <div class="h3 mb-0 font-weight-bold text-gray-800">@Model.WeatherInfo.Forecast[1].TemperatureF℉</div>
                                         </div>
-                                        <div class="h3 mb-0 font-weight-bold text-gray-800">@Model.WeatherInfo.Forecast[3].TemperatureF℉</div>
                                     </div>
-                                </div>
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div>
-                                            <i class="fas fa-calendar fa-2x text-black-300">@Model.WeatherInfo.Forecast[3].Description</i>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div>
+                                                <i class="fas fa-calendar fa-2x text-black-300">@Model.WeatherInfo.Forecast[1].Description</i>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Day 5 -->
-                    <div class="col mx-1">
-                        <div class="card border-left-success shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            @Model.WeatherInfo.Forecast[4].Date.DayOfWeek
+                        <!-- Day 3 -->
+                        <div class="col mx-1">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                @Model.WeatherInfo.Forecast[2].Date.DayOfWeek
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h3 mb-0 mr-3 font-weight-bold text-gray-800">@Model.WeatherInfo.Forecast[2].TemperatureF℉</div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="h3 mb-0 font-weight-bold text-gray-800">@Model.WeatherInfo.Forecast[4].TemperatureF℉</div>
                                     </div>
-                                </div>
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div>
-                                            <i class="fas fa-calendar fa-2x text-black-300">@Model.WeatherInfo.Forecast[4].Description</i>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div>
+                                                <i class="fas fa-calendar fa-2x text-black-300">@Model.WeatherInfo.Forecast[2].Description</i>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+
+                        <!-- Day 4 -->
+                        <div class="col mx-1">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                @Model.WeatherInfo.Forecast[3].Date.DayOfWeek
+                                            </div>
+                                            <div class="h3 mb-0 font-weight-bold text-gray-800">@Model.WeatherInfo.Forecast[3].TemperatureF℉</div>
+                                        </div>
+                                    </div>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div>
+                                                <i class="fas fa-calendar fa-2x text-black-300">@Model.WeatherInfo.Forecast[3].Description</i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Day 5 -->
+                        <div class="col mx-1">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                @Model.WeatherInfo.Forecast[4].Date.DayOfWeek
+                                            </div>
+                                            <div class="h3 mb-0 font-weight-bold text-gray-800">@Model.WeatherInfo.Forecast[4].TemperatureF℉</div>
+                                        </div>
+                                    </div>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div>
+                                                <i class="fas fa-calendar fa-2x text-black-300">@Model.WeatherInfo.Forecast[4].Description</i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
-
             </div>
             <!-- /.container-fluid -->
 

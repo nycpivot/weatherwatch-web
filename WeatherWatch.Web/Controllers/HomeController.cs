@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Dapr.Client;
+using Microsoft.AspNetCore.Mvc;
 //using StackExchange.Redis;
 using System.Diagnostics;
 using WeatherWatch.Application.Interfaces;
@@ -9,7 +10,9 @@ namespace WeatherWatch.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly DaprClient daprClient;
         //private readonly IDatabase cache;
+        
         private readonly IWeatherWatchApplication weatherApplication;
         //private readonly WavefrontDirectIngestionClient wavefrontSender;
         private readonly ILogger<HomeController> logger;
@@ -25,9 +28,11 @@ namespace WeatherWatch.Web.Controllers
         //}
 
         public HomeController(
+            DaprClient daprClient,
             IWeatherWatchApplication weatherApplication,
             ILogger<HomeController> logger)
         {
+            this.daprClient = daprClient;
             this.weatherApplication = weatherApplication;
             this.logger = logger;
         }
@@ -142,6 +147,12 @@ namespace WeatherWatch.Web.Controllers
         private IList<RecentViewModel> Cache(string zipCode)
         {
             var recents = new List<RecentViewModel>();
+
+            await client.SaveStateAsync("statestore-web", zipCode, zipCode);
+
+            // var result = await client.GetStateAsync<string>(DAPR_STORE_NAME, orderId.ToString());
+
+            // await client.DeleteStateAsync(DAPR_STORE_NAME, orderId.ToString());
 
             //this.cache.KeyDelete(new RedisKey("Recent"));
 

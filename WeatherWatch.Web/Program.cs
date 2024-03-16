@@ -47,6 +47,9 @@ builder.Services.AddSingleton<IWeatherApi>(new WeatherApi() { Url = weatherApi }
 // weather app
 builder.Services.AddSingleton<IWeatherWatchApplication, WeatherWatchApplication>();
 
+// add dapr client
+builder.Services.AddDaprClient(builder => builder.Build());
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
