@@ -148,11 +148,11 @@ namespace WeatherWatch.Web.Controllers
         {
             var recents = new List<RecentViewModel>();
 
-            await client.SaveStateAsync("statestore-web", zipCode, zipCode);
+            daprClient.SaveStateAsync("statestore-web", zipCode, zipCode);
 
-            // var result = await client.GetStateAsync<string>(DAPR_STORE_NAME, orderId.ToString());
+            // var result = await daprClient.GetStateAsync<string>(DAPR_STORE_NAME, orderId.ToString());
 
-            // await client.DeleteStateAsync(DAPR_STORE_NAME, orderId.ToString());
+            // await daprClient.DeleteStateAsync(DAPR_STORE_NAME, orderId.ToString());
 
             //this.cache.KeyDelete(new RedisKey("Recent"));
 
