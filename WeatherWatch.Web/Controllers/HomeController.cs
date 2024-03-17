@@ -1,5 +1,6 @@
 ﻿using Dapr.Client;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 //using StackExchange.Redis;
 using System.Diagnostics;
 using WeatherWatch.Application.Interfaces;
@@ -156,7 +157,7 @@ namespace WeatherWatch.Web.Controllers
 
             var recent = daprClient.GetStateAsync<string>("statestore-web", "recent").Result; // this.cache.StringGet(new RedisKey("Recent"));
 
-            if (!recent.HasValue)
+            if (!String.IsNullOrWhiteSpace(recent))
             {
               var zipList = new List<string>() { zipCode };
 
