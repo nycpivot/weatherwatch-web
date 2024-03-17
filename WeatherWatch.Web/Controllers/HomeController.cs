@@ -148,44 +148,44 @@ namespace WeatherWatch.Web.Controllers
         {
             var recents = new List<RecentViewModel>();
 
-            daprClient.SaveStateAsync("statestore-web", zipCode, zipCode);
-
             // var result = await daprClient.GetStateAsync<string>(DAPR_STORE_NAME, orderId.ToString());
 
-            // await daprClient.DeleteStateAsync(DAPR_STORE_NAME, orderId.ToString());
+            daprClient.DeleteStateAsync("statestore-web", "recent");
 
             //this.cache.KeyDelete(new RedisKey("Recent"));
 
-            //var recent = this.cache.StringGet(new RedisKey("Recent"));
+            var recent = daprClient.GetStateAsync<string>("statestore-web", "recent").Result; // this.cache.StringGet(new RedisKey("Recent"));
 
-            //if (!recent.HasValue)
-            //{
-            //    var zipList = new List<string>() { zipCode };
+            if (!recent.HasValue)
+            {
+              var zipList = new List<string>() { zipCode };
 
-            //    var recentList = JsonConvert.SerializeObject(zipList);
-
-            //    this.cache.StringSet(new RedisKey("Recent"), new RedisValue(recentList));
-
-            //    recents.Add(new RecentViewModel { ZipCode = zipCode });
-            //}
-            //else
-            //{
-            //    var zipList = JsonConvert.DeserializeObject<IList<string>>(recent);
-
-            //    if (!zipList.Any(z => z == zipCode))
-            //    {
-            //        zipList.Add(zipCode);
-            //    }
-
-            //    var recentList = JsonConvert.SerializeObject(zipList);
+							var recentList = JsonConvert.SerializeObject(zipList);
 
             //    this.cache.StringSet(new RedisKey("Recent"), new RedisValue(recentList));
+							daprClient.SaveStateAsync("statestore-web", "recent", recentList);
 
-            //    foreach(var zip in zipList)
-            //    {
-            //        recents.Add(new RecentViewModel() { ZipCode = zip });
-            //    }
-            //}
+              recents.Add(new RecentViewModel { ZipCode = zipCode });
+            }
+            else
+            {
+              var zipList = JsonConvert.DeserializeObject<IList<string>>(recent);
+
+							if (!zipList.Any(z => z == zipCode))
+							{
+									zipList.Add(zipCode);
+							}
+
+            	var recentList = JsonConvert.SerializeObject(zipList);
+
+            //    this.cache.StringSet(new RedisKey("Recent"), new RedisValue(recentList));
+							daprClient.SaveStateAsync("statestore-web", "recent", recentList);
+
+							foreach(var zip in zipList)
+							{
+									recents.Add(new RecentViewModel() { ZipCode = zip });
+							}
+            }
 
             return recents;
         }
