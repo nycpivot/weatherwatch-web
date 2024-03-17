@@ -16,7 +16,7 @@ namespace WeatherWatch.Web.Controllers
 
         public IActionResult Index()
         {
-            zipCode = Guid.NewGuid().ToString();
+            var zipCode = Guid.NewGuid().ToString();
 
             //var result = daprClient.GetStateAsync<string>("statestore-web", cartId.ToString());
 
