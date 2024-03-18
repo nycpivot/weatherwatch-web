@@ -149,21 +149,14 @@ namespace WeatherWatch.Web.Controllers
         {
             var recents = new List<RecentViewModel>();
 
-            // var result = await daprClient.GetStateAsync<string>(DAPR_STORE_NAME, orderId.ToString());
-
-            daprClient.DeleteStateAsync("statestore-web", "recent");
-
-            //this.cache.KeyDelete(new RedisKey("Recent"));
-
-            var recent = daprClient.GetStateAsync<string>("statestore-web", "recent").Result; // this.cache.StringGet(new RedisKey("Recent"));
-
-            if (!String.IsNullOrWhiteSpace(recent))
+            var recent = daprClient.GetStateAsync<string>("statestore-web", "recent").Result;
+            
+            if (String.IsNullOrWhiteSpace(recent))
             {
               var zipList = new List<string>() { zipCode };
 
 							var recentList = JsonConvert.SerializeObject(zipList);
 
-            //    this.cache.StringSet(new RedisKey("Recent"), new RedisValue(recentList));
 							daprClient.SaveStateAsync("statestore-web", "recent", recentList);
 
               recents.Add(new RecentViewModel { ZipCode = zipCode });
@@ -179,7 +172,6 @@ namespace WeatherWatch.Web.Controllers
 
             	var recentList = JsonConvert.SerializeObject(zipList);
 
-            //    this.cache.StringSet(new RedisKey("Recent"), new RedisValue(recentList));
 							daprClient.SaveStateAsync("statestore-web", "recent", recentList);
 
 							foreach(var zip in zipList)
